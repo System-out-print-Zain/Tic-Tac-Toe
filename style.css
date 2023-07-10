@@ -1,0 +1,39 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+:root {
+    --main-fonts: Cochin, 'Times New Roman';
+    font-family: var(--main-fonts);
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 25fr 1fr; 
+}
+
+.header {
+    box-shadow: 0px 3px 3px grey;
+    background-color: rgb(210, 209, 207);
+    text-align: center;
+    padding: 10px;
+    flex-basis: auto;
+}
+
+.title {
+    font-weight: lighter;
+}
+
+.footer {
+    text-align: center;
+}
+
+.github {
+    font-weight: 100;
+}
+
