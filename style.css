@@ -5,6 +5,7 @@
 
 :root {
     --main-fonts: Cochin, 'Times New Roman';
+    --unactive-opac: 0.3;
     font-family: var(--main-fonts);
     height: 100%;
 }
@@ -42,6 +43,7 @@ main {
     padding: 40px 0px;
     display: flex;
     flex-direction: column;
+    opacity: var(--unactive-opac);
 }
 
 .choices {
@@ -56,7 +58,7 @@ main {
     font-weight: bold;
     background-color: transparent;
     border-radius: 5px;
-    opacity: 0.3;
+    opacity: var(--unactive-opac);
     border: 1px solid black;
 }
 
@@ -95,11 +97,14 @@ main {
     cursor: pointer;
 }
 
+.active{
+    opacity: 1;
+}
+
 /*Gameboard styling*/
 
 .container{
     margin-top: 50px;
-    box-shadow: 1px 1px 2px;
     padding: 20px;
     width: 40vw;
     margin-left: auto;
@@ -108,6 +113,7 @@ main {
     padding-bottom: 100px;
     display: flex;
     justify-content: center;
+    opacity: var(--unactive-opac);
 }
 
 .board{
@@ -156,6 +162,13 @@ main {
 ._8{
     border-right: 0px;
 }
+
+.active.container{
+    opacity: 1;
+    box-shadow: 1px 1px 2px;
+}
+
+/*Footer styling*/
 
 .footer {
     text-align: center;
