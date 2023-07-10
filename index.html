@@ -11,21 +11,19 @@
         <h1 class="title">Tic-Tac-Toe</h1>
     </div>
     <main>
-        <div class="selection active">
-            <form class="user-options">
-                <div class="choices">
-                    <select name="difficulty" id="diff-drop-down">
-                        <option value="easy">Easy</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                    <div class="marker-choice">
-                        <button type="button" class="marker chosen">O</button>
-                        <button type="button" class="marker">X</button>
-                    </div>
+        <form class="user-options">
+            <div class="choices">
+                <select name="difficulty" id="diff-drop-down">
+                    <option value="easy">Easy</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <div class="marker-choice">
+                    <button type="button" class="marker chosen">O</button>
+                    <button type="button" class="marker">X</button>
                 </div>
-                <input type="submit" value="Play Game" id="play-btn">
-            </form>
-        </div>
+            </div>
+            <input type="submit" value="Play Game" id="play-btn">
+        </form>
         <div class="board non-active">
             <div class="square 0"></div>
             <div class="square 1"></div>
