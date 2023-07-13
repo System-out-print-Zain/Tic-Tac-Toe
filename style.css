@@ -116,6 +116,7 @@ main {
     align-items: center;
     flex-direction: column;
     opacity: var(--unactive-opac);
+    pointer-events: none;
 }
 
 .board{
@@ -170,6 +171,7 @@ main {
 .active.container{
     opacity: 1;
     box-shadow: 1px 1px 2px;
+    pointer-events: all;
 }
 
 .play-again {
