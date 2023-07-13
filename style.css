@@ -190,6 +190,11 @@ main {
     cursor: pointer;
 }
 
+.result {
+    margin-top: 25px;
+    font-weight: lighter;
+}
+
 /*Footer styling*/
 
 .footer {
