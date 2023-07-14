@@ -63,6 +63,10 @@ main {
     border: 1px solid black;
 }
 
+.marker-choice {
+    display: flex;
+}
+
 .marker:hover{
     cursor: pointer;
 }
@@ -205,5 +209,30 @@ main {
 
 .github {
     font-weight: 100;
+}
+
+@media only screen and (max-width: 600px){
+    .container {
+        width: 100vw;
+    }
+    .choices {
+        display: flex;
+        flex-direction: column;
+    }
+    .user-options{
+        align-items: center;
+    }
+    #diff-drop-down{
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+    }
+    .marker-choice {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #play-btn{
+        width: 100%;
+    }
 }
 
