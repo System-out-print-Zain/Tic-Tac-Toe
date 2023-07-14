@@ -87,6 +87,7 @@ var display = (function() {
 
 var gameBoard = (function() {
     const boardArr = ["", "", "", "", "", "", "", "", ""];
+    let recentlyPlaced;
 
     function refresh(){
         for (let i = 0; i < boardArr.length; i++)
@@ -118,6 +119,7 @@ var gameBoard = (function() {
         else
         {
             boardArr[index] = marker;
+            recentlyPlaced = marker;
             let state = gameState(boardArr);
             if (state != "IP") game.finish(state);
             return index;
@@ -176,7 +178,7 @@ var gameBoard = (function() {
         else if (board[2] == "X" && board[5] == "X" && board[8] == "X"){
             return "X W";
         }
-        else if (bboard[0] == "O" && board[3] == "O" && board[6] == "O"){
+        else if (board[0] == "O" && board[3] == "O" && board[6] == "O"){
             return "O W";
         }
         else if (board[1] == "O" && board[4] == "O" && board[7] == "O"){
@@ -193,8 +195,11 @@ var gameBoard = (function() {
         }
     }
 
-    return {gameState, refresh, placeMarker,
-    get board () {return boardArr}}
+    function getRecentlyPlacedMarker(){
+        return recentlyPlaced
+    }
+
+    return {gameState, refresh, placeMarker, getRecentlyPlacedMarker, get board () {return boardArr}}
 })();
 
 // Player objects
@@ -214,8 +219,7 @@ function ManualPlayer(name, marker)
     const parent = Player(name, marker);
 
     parent.makeMove = function(index){
-        let a = gameBoard.placeMarker(parent.marker, index);
-        return a;
+        return gameBoard.placeMarker(parent.marker, index);
     };
 
     return parent;
@@ -242,8 +246,68 @@ function CPUHard(name, marker)
     const parent = Player(name, marker);
     // Minimax algorithm
 
-    parent.makeMove = function(){
+    function avaSpots(board){
+        ava = []
+        for (let i = 0; i < board.length; i++)
+        {
+            if (board[i] === "") ava.push(i);
+        }
+        return ava;
+    }
 
+    function moveVal(playerMarker, oppMarker, board, move){
+        if (move === undefined) move = true;
+        const ava = avaSpots(board);
+        let total = 0;
+        if (move === true)
+        {
+            for (let i = 0; i < ava.length; i++)
+            {
+                let newBoard = Array.from(board);
+                newBoard[ava[i]] = playerMarker;
+
+                let check = gameBoard.gameState(newBoard);
+                if (check === "IP") total += moveVal(playerMarker, oppMarker, newBoard, false);
+                else if (check === playerMarker + " W") total += 1;
+            }
+        }
+        else 
+        {
+            for (let i = 0; i < ava.length; i++)
+            {
+                let newBoard = Array.from(board);
+                newBoard[ava[i]] = oppMarker;
+
+                let check = gameBoard.gameState(newBoard);
+                if (check === "IP") total += moveVal(playerMarker, oppMarker, newBoard, true);
+            }
+        }
+        return total;
+    }
+
+    parent.makeMove = function(){
+        const ava = avaSpots(gameBoard.board);
+        const vals = []
+
+        for (let i = 0; i < ava.length; i++)
+        {
+            let newBoard = Array.from(gameBoard.board);
+            newBoard[ava[i]] = parent.marker;
+            vals.push(moveVal(gameBoard.getRecentlyPlacedMarker(), parent.marker, newBoard));
+        }
+
+        let minVal = vals[0];
+        let minInd = 0;
+
+        for (let i = 0; i < vals.length; i ++)
+        {
+            if (minVal > vals[i]){
+                minInd = i;
+                minVal = vals[i];
+            }
+        }
+        
+        return gameBoard.placeMarker(parent.marker, ava[minInd]);
     }
 
     return parent;
